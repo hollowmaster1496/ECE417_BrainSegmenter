@@ -30,9 +30,17 @@
 %% 2) Proposed Solution
 % 
 %     TODO: Add overall algorithmic workflow of proposed solution
+%     The proposed algorithm termed "improved fuzzy c-means" (IFCM) utilizes 
+%     not just single pixel intensity, as in the case of FCM, but a neigborhood 
+%     of pixel intensities and locations to determine a segment. In particular,
+%     the two factors of Neighborhood Attraction that are improved using the 
+%     proposed algorithm are:
+%       - feature differences between neighboring pixels
+%       - relative locations of neighboring pixels
 %
-% 
-% 
+%     The subtle extension of considering a neighborhood of pixels greatly 
+%     overcomes the influence of noise.
+%
 %
 %
 %% 3) Data Sources
