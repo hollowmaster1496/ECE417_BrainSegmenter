@@ -45,8 +45,8 @@
 % intensities and distances to a centroid. This algorithm improves two key
 % factors in Neighborhood Attraction:
 %
-% * feature differences between neighboring pixels
-% * relative locations of neighboring pixel
+% * feature attraction: differences between neighboring pixel intensities
+% * distance attraction: relative locations of neighboring pixel
 % 
 % The dataset $\mathbf{X}$ is a pxN matrix where p is the dimension of each
 % $\mathbf{x}_{j}$ vector and N is the size of the image. For the basic FCM case,
@@ -55,11 +55,33 @@
 % image.
 %
 % The membership function of vector $\mathbf{x}_j$ to ${i}^{th}$ cluster is given by:    
-% $$ \mathbf{u}_{i_j} =\frac{1}{ \sum_{k=1}^{C}(\frac{\mathrm{d (x_j{}, v_i{})} }{\mathrm{d} (x_j{}, v_k{}) })^{2/m-1} } $$
+% $$ \mathbf{u}_{i_j} =\frac{1}{ \sum_{k=1}^{C}(\frac{\mathrm{d (x_j{}, v_i{})}
+% }{\mathrm{d} (x_j{}, v_k{}) })^{2/(m-1)} } $$
 %
 % The ${i}^{th}$ cluster feature center is:
-% $$ \mathbf{v}_i = \frac{ \sum_{j=1}^{N}(u_{ij})^{m} \mathbf{x}_j }{ \sum_{j=1}^{N}(u_{ij})^{m} } $$
+% $$ \mathbf{v}_i = \frac{ \sum_{j=1}^{N}(u_{ij})^{m} \mathbf{x}_j }{ 
+% \sum_{j=1}^{N}(u_{ij})^{m} } $$
 %
+% The primary differentiator between IFCM and FCM is IFCM's consideration of 
+% Neighborhood Attraction in the degree of fuzziness as follows:
+%
+% $$\mathrm{d^{2}} (\mathbf{x}_j , \mathbf{v}_j) = ||\mathbf{x}_j - \mathbf{v}_j
+% || (1 - \lambda \mathbf{H}_{ij} - \xi \mathbf{F}_{ij})$$
+%
+% The matrix $\mathbf{H}_{ij}$ is constructed using the intensity difference between
+% pixel j and its neighbour k:
+%
+% $$\mathbf{H}_{ij} = \frac{ \sum_{k=1}^{S} \mathbf{u}_{ik} || \mathbf{x}_j - 
+% \mathbf{x}_k ||}{ \sum_{k=1}^{S} || \mathbf{x}_j - \mathbf{x}_k || }$$
+%
+% Likewise, the matrix $\mathbf{F}_{ij}$ is constructed using the spatial difference,
+% $q_{jk}$, which is governed by the relative location of pixel k to pixel j within the
+% neighborhood.
+% $$\mathbf{F}_{ij} = \frac{ \sum_{k=1}^{S} \mathbf{u}_{ik}^2 \mathbf{q}_{jk}^2 }
+% { \sum_{k=1}^{S} \mathbf{q}_{jk}^2 }$$
+%
+% Finally, clusters are decided by minimizing the following cost function:
+% $$ \mathit{argmin}  \sum_{j=1}^{N} \sum_{i=1}^C \mathbf{u}_{ij}^2 d^2(\mathbf{x}_j,\mathbf{v}_i)$$
 %
 %
 %% 3) Data Sources
