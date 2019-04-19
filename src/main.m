@@ -94,19 +94,18 @@
 % This image is then subjected to additive noise with a tunable parameter, alpha
 % to produce 2 noisy copies.
       
-  f1 = im2double(imread('brain-tumour-mri.gif'));
-  f1 = im2double(f1);
-  f1=f1(135:250,215:330);    
-  subplot(1,3,1), imshow(f1);
+f1 = im2double(imread('brain-tumour-mri.gif'));
+f1=f1(135:250,215:330);    
+subplot(1,3,1), imshow(f1);
 
-  alpha = 0.4;
-  noise = rand(size(f1));
-  f2 = f1 .+ alpha*noise;
-  subplot(1,3,2), imshow(f2);
+alpha = 0.4;
+noise = rand(size(f1));
+f2 = f1 .+ alpha*noise;
+subplot(1,3,2), imshow(f2);
 
-  alpha = 0.7;
-  f3 = f1 .+ alpha*noise;
-  subplot(1,3,3), imshow(f3);
+alpha = 0.7;
+f3 = f1 .+ alpha*noise;
+subplot(1,3,3), imshow(f3);
     
 %% 4) Solution
 % 
