@@ -45,9 +45,12 @@
 %
 % * feature differences between neighboring pixels
 % * relative locations of neighboring pixel
-%     
+% 
+% The membership function of vector $\mathbf{x}_j$ to ${i}^{th}$ cluster is given by:    
+% $$ \mathbf{u}_{i_j} =\frac{1}{ \sum_{k=1}^{C}(\frac{\mathrm{d (x_j{}, v_i{})} }{\mathrm{d} (x_j{}, v_k{}) })^{2/m-1} } $$
 %
-%
+% The i'th cluster center is:
+% $$ \mathbf{v}_i = \frac{ \sum_{j=1}^{N}(u_{ij})^{m} \mathbf{x}_j }{ \sum_{j=1}^{N}(u_{ij})^{m} } $$
 %
 %
 %% 3) Data Sources
