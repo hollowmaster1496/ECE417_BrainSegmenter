@@ -12,21 +12,23 @@
 % Precise segmentation of the brain is important for detection of tumors,
 % edema, and necrotic tissues so that proper diagnosis and treatment can be 
 % provided. However, segmentation techniques such as thresholding, which rely
-% heavily on the high contrast resolution are prone to limitations due to the 
+% heavily on contrast resolution, are prone to limitations due to the 
 % complex distribution of tissue intensities in MRI images. 
-% The large number of intensities makes it difficult to determinine appropriate
-% thresholds.
+% The large number of intensities and the presence of noise makes it difficult 
+% to determinine appropriate thresholds.
 %
 % As a result of these limitations, thresholding must be combined with other 
 % segmentation methods such as fuzzy-c-means (FCM) clustering or 
-% expectation-maximization (EM). However, both FCM and EM are extremely prone
-% to the effects of noise and statistical estimation of noise, as Gaussian, is
+% expectation-maximization (EM). However, both FCM and EM are themselves prone
+% to the effects of noise. Traditional denoising methods which perform Statistical 
+% estimation of noise, as being Gaussian or Laplacian for example, are
 % invalid during MRI segmentation. In fact, the process of segmentation itself
 % introduces further noise.
 %
 % A second problem associated with FCM is the lack of consideration for spatial 
 % dependence. Pixels are associated with a cluster based solely on pixel 
-% intensity values, which are heavily impacted by noise. 
+% intensity values. Distance of a pixel to a cluster is not featured in the membership, 
+% and therefore, noise has a paramount effect on the result of segmentation.
 % Hence, clustering that provides robust and 
 % consistent segmentation in the presence of unknown noise is desired.
 % 
