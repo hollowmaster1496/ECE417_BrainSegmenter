@@ -62,7 +62,7 @@
       
   f1 = im2double(imread('brain-tumour-mri.gif'));
   f1 = im2double(f1);
-  f1=f1(135:250,230:325);    
+  f1=f1(135:250,215:330);    
   subplot(1,3,1), imshow(f1);
 
   alpha = 0.4;
