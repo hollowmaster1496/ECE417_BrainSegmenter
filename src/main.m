@@ -40,7 +40,7 @@
 % TODO: Add overall algorithmic workflow of proposed solution
 %
 % The proposed algorithm termed "improved fuzzy c-means" (IFCM) reduces 
-% the effect of noise on FCM by considering a neighborhood of pixel intensities
+% the effect of noise in FCM by considering a neighborhood of pixel intensities
 % and distances to a centroid, as opposed to individual pixel 
 % intensities and distances to a centroid. This algorithm improves two key
 % factors in Neighborhood Attraction:
@@ -48,11 +48,18 @@
 % * feature differences between neighboring pixels
 % * relative locations of neighboring pixel
 % 
+% The dataset $\mathbf{X}$ is a pxN matrix where p is the dimension of each
+% $\mathbf{x}_{j}$ vector and N is the size of the image. For the basic FCM case,
+% p is taken to be 1 such that each $\mathbf{x}_{j}$ vector is 1x1 and holds only the 
+% intensity of a pixel. $\mathbf{X}$ is thus constructed by column-stacking the input
+% image.
+%
 % The membership function of vector $\mathbf{x}_j$ to ${i}^{th}$ cluster is given by:    
 % $$ \mathbf{u}_{i_j} =\frac{1}{ \sum_{k=1}^{C}(\frac{\mathrm{d (x_j{}, v_i{})} }{\mathrm{d} (x_j{}, v_k{}) })^{2/m-1} } $$
 %
-% The i'th cluster center is:
+% The ${i}^{th}$ cluster feature center is:
 % $$ \mathbf{v}_i = \frac{ \sum_{j=1}^{N}(u_{ij})^{m} \mathbf{x}_j }{ \sum_{j=1}^{N}(u_{ij})^{m} } $$
+%
 %
 %
 %% 3) Data Sources
