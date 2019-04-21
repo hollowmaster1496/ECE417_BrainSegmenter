@@ -26,8 +26,10 @@
 % data: column-stacked input image
 % num_clusters: number of segments to group pixels into
 % m: exponent to control degree of fuzziness 
-function [center, U] = ifcm (data, num_clusters, m)
-  % Step 1: Determine num clusters and degree of fuzziness m
+function [U, V] = ifcm (data, num_clusters, m)
+    % Step 1: Determine num clusters and degree of fuzziness m
+  %         Note: These are passed as parameters of function
+  
   % Step 2: Execute FCM completely
   % Step 3: Utilize final membership of FCM as initial membership of IFCM
   % Step 4: At l'th iteration, calculate cluster center v^l using membership u_ij^l
