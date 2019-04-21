@@ -100,6 +100,7 @@
 %
 % This image is then subjected to additive noise with a tunable parameter, alpha
 % to produce 2 noisy copies.
+clc;
       
 f1 = im2double(imread('brain-tumour-mri.gif'));
 f1=f1(135:250,215:330);    
@@ -119,14 +120,31 @@ subplot(1,3,3), imshow(f3);
 % TODO: Necessary details on structure of algorithm 
 % TODO: Add actual implementation code
 %
-% 
-% 
+X1 = f1(:);  % Load Dataset
 
+[U1_fcm, V1_fcm] = ifcm(X1, 3, 2);
+maxU = max(U1_fcm);
+index1 = find(U1_fcm(1,:) == maxU);
+index2 = find(U1_fcm(2, :) == maxU);
+index3 = find(U1_fcm(3, :) == maxU);
+
+% 
+% 
+%
 %
 %
 %% 5) Visualization of Results
-% 
+%
+% Note: The cluster centers could not be aligned due to use of 'reshape'
+%
 % TODO: Plot images here
+f1_fcm(1:length(X1))=0;
+f1_fcm(index1)=1;
+f1_fcm(index2)=0.5;
+f1_fcm(index3)=0.2;
+
+imnew = reshape(f1_fcm, 116, 116);
+figure; imshow(imnew);
 %
 % 
 % 

@@ -28,12 +28,44 @@
 % m: exponent to control degree of fuzziness 
 function [U, V] = ifcm (data, num_clusters, m)
     % Step 1: Determine num clusters and degree of fuzziness m
-  %         Note: These are passed as parameters of function
+    %         Note: These are passed as parameters of function
   
   % Step 2: Execute FCM completely
+  U = randn(num_clusters, size(data)); % Initialize Membership matrix U
+  U = U./sum(U);              %    with random but normalized values
+  
+  MAX_ITERATION = 5;
+  EPSILON = 0.69;    % Control exit condition for iterative updates to U and V 
+  J = zeros(MAX_ITERATION, 1);  % Initialize the cost function
+  
+  % Execute FCM up to 'MAX_ITERATION' times
+  for i = 1:MAX_ITERATION,
+    membership_function = U.^m; 
+    V = membership_function*data./((ones(size(data, 2), 1)*sum(membership_function'))'); % new center
+    
+    %dist = distfcm(V, data);       
+    for k = 1:size(V, 1),
+      dist(k, :) = abs(data - V(k))';  % fill the distance matrix |x - v|
+    end
+    
+    J(i) = sum(sum((dist.^2).*membership_function)); % i'th cost function result
+    
+    tmp = dist.^(-2/(m-1));      % calculate new U
+    U = tmp./(ones(num_clusters, 1)*sum(tmp));
+    
+    % check termination condition
+    if i > 1,
+      if abs(J(i) - J(i-1)) < EPSILON, break; end,
+    end
+  end
+  
+  
   % Step 3: Utilize final membership of FCM as initial membership of IFCM
+    
   % Step 4: At l'th iteration, calculate cluster center v^l using membership u_ij^l
+  
   % Step 5: Calculate the improved similarity measurement d^2(x, v)
+  
   % Step 6: Compare u_ij and u_ij^(l-1)
   % .  6a) if | u_ij^l - u_ij^(l-1) | < epsilon, then STOP
   % .  6b) otherwise repeat from step 4
