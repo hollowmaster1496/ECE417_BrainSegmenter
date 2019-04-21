@@ -89,7 +89,8 @@
 % TODO: description of problem synthesis/parameters
 %
 % A brain MRI with a tumour and noticable salt-pepper noise is acquired from 
-% Figure3 of <http://www.ajnr.org/content/27/3/475/tab-figures-data>
+% Figure3 of <http://www.ajnr.org/content/27/3/475/tab-figures-data>. This image
+% is purely grayscale.
 %
 % This image is then subjected to additive noise with a tunable parameter, alpha
 % to produce 2 noisy copies.
