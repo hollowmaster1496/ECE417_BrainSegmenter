@@ -39,10 +39,10 @@
 %
 % TODO: Add overall algorithmic workflow of proposed solution
 %
-% The proposed algorithm termed "improved fuzzy c-means" (IFCM) reduces 
-% the effect of noise in FCM by considering a neighborhood of pixel intensities
-% and distances to a centroid, as opposed to individual pixel 
-% intensities and distances to a centroid. This algorithm improves two key
+% The algorithm proposed in the paper, termed "improved fuzzy c-means" (IFCM), reduces 
+% the effect of noise by considering a neighborhood of pixel intensities
+% and distances to a centroid. This is in contrast to FCM which considers only 
+% individual pixel intensities to a centroid. This algorithm improves two key
 % factors in Neighborhood Attraction:
 %
 % * feature attraction: differences between neighboring pixel intensities
