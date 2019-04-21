@@ -80,9 +80,15 @@
 % $$\mathbf{F}_{ij} = \frac{ \sum_{k=1}^{S} \mathbf{u}_{ik}^2 \mathbf{q}_{jk}^2 }
 % { \sum_{k=1}^{S} \mathbf{q}_{jk}^2 }$$
 %
-% Finally, clusters are decided by minimizing the following cost function:
+% Finally, clusters are decided iteratively updating U and V to minimize the following cost function:
 % $$ \mathit{argmin}  \sum_{j=1}^{N} \sum_{i=1}^C \mathbf{u}_{ij}^2 d^2(\mathbf{x}_j,\mathbf{v}_i)$$
 %
+% The stop condition is decided by a degree of convergence such that 
+% $ | U^{(l+1)}-U^{(l)} | \leq \varepsilon $ where $l$ represents the loop iteration and 
+% $\varepsilon$ is the convergence parameter.
+%
+% Based on the research paper, the results presented here use $\lambda = 0.6038 $ and 
+% $\varepsilon = 0.6097$
 %
 %% 3) Data Sources
 % 
