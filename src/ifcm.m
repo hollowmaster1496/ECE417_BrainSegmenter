@@ -104,6 +104,24 @@ function [U, V] = ifcm (data, num_clusters, m)
     
     
     % Step 5: Calculate the improved similarity measurement d^2(x, v)
+    % compute intensity differences between points and centroid |x - v|    
+    for k = 1:size(V, 1),
+      dist(k, :) = abs(data - V(k))';
+    end
+    
+    lambda = 0.6;
+    eps = 0.6;
+    ifcm_dist = dist.^2.*(ones(size(dist)) - lambda*H - eps*F);
+    
+    J(i) = sum(sum((dist.^2).*membership_function)); % i'th cost function result
+    
+    % compute new degree of fuzziness and update membership matrix
+    fuzziness = ifcm_dist.^(2/(m-1));
+    for k=1:num_clusters,
+      U = U .+ sum(fuzziness);
+    end
+    
+    U = fuzziness./U;
     
     % Step 6: Compare u_ij and u_ij^(l-1)
     % .  6a) if | u_ij^l - u_ij^(l-1) | < epsilon, then STOP
