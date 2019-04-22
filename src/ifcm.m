@@ -98,7 +98,8 @@ function [U, V] = ifcm (data, num_clusters, m)
     q = ones(size(data));     % Initialize matrix to store sum of all distances
     q = conv2(q, E, 'same');
 
-      
+    F = sum(U(i, :).^2.*q.^2)./sum(q.^2); % compute i'th Distance Attractions
+     
     % Step 4: At l'th iteration, calculate cluster center v^l using membership u_ij^l
     
     % Step 5: Calculate the improved similarity measurement d^2(x, v)
