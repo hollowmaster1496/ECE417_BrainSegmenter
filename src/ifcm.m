@@ -72,36 +72,39 @@ function [U, V] = ifcm (data, num_clusters, m)
     U = fuzziness./U;
   end
   
-% Step 3: Utilize final membership of FCM as initial membership of IFCM
+  % Step 3: Utilize final membership of FCM as initial membership of IFCM
 
-H = zeros(size(data));  % Initialize i'th Feature Attraction matrix
-F = zeros(size(data));  % Initialize i'th Distance Attraction matrix
+  H = zeros(size(data));  % Initialize i'th Feature Attraction matrix
+  F = zeros(size(data));  % Initialize i'th Distance Attraction matrix
 
-i = 1;
-while i <= size(U, 1),    
-  membership_function = U.^m;
-  
-  % ensure matching dimensions for pointwise division of j elements
-  V_numerator = membership_function*data;
-  V_denominator = (ones(size(data, 1), 1)*sum(membership_function'))';
-  V = V_numerator./V_denominator;
-  
-  % Compute intensity differences between points and ALL neighbors 
-  % Define a kernel K, with function handle, to take all adjacent intensity differences
-  K = @(X) kernel_diffIntensity(X);
-  g = nlfilter(data, [3 3], K);
-  
-  H = sum(U(i, :).*g)./sum(g);
-
-i= i+1;
-end
+  i = 1;
+  while i <= size(U, 1),    
+    membership_function = U.^m;
     
-  % Step 4: At l'th iteration, calculate cluster center v^l using membership u_ij^l
-  
-  % Step 5: Calculate the improved similarity measurement d^2(x, v)
-  
-  % Step 6: Compare u_ij and u_ij^(l-1)
-  % .  6a) if | u_ij^l - u_ij^(l-1) | < epsilon, then STOP
-  % .  6b) otherwise repeat from step 4
-  
+    % ensure matching dimensions for pointwise division of j elements
+    V_numerator = membership_function*data;
+    V_denominator = (ones(size(data, 1), 1)*sum(membership_function'))';
+    V = V_numerator./V_denominator;
+    
+    % Compute intensity differences between points and ALL neighbors 
+    % Define a kernel K, with function handle, to take all adjacent intensity differences
+    K = @(X) kernel_diffIntensity(X);
+    g = nlfilter(data, [3 3], K);
+    
+    H = sum(U(i, :).*g)./sum(g);  % compute Feature Attraction
+    
+    % Compute 'euclidean' distance between neighborhood coordinates
+
+
+      
+    % Step 4: At l'th iteration, calculate cluster center v^l using membership u_ij^l
+    
+    % Step 5: Calculate the improved similarity measurement d^2(x, v)
+    
+    % Step 6: Compare u_ij and u_ij^(l-1)
+    % .  6a) if | u_ij^l - u_ij^(l-1) | < epsilon, then STOP
+    % .  6b) otherwise repeat from step 4
+    
+    i= i+1;
+  end
 endfunction
