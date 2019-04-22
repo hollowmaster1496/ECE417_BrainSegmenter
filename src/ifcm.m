@@ -39,24 +39,37 @@ function [U, V] = ifcm (data, num_clusters, m)
   J = zeros(MAX_ITERATION, 1);  % Initialize the cost function
   
   % Execute FCM up to 'MAX_ITERATION' times
-  for i = 1:MAX_ITERATION,
-    membership_function = U.^m; 
-    V = membership_function*data./((ones(size(data, 2), 1)*sum(membership_function'))'); % new center
-    
-    %dist = distfcm(V, data);       
-    for k = 1:size(V, 1),
-      dist(k, :) = abs(data - V(k))';  % fill the distance matrix |x - v|
-    end
-    
-    J(i) = sum(sum((dist.^2).*membership_function)); % i'th cost function result
-    
-    tmp = dist.^(-2/(m-1));      % calculate new U
-    U = tmp./(ones(num_clusters, 1)*sum(tmp));
+  i = 1;
+  while i <= MAX_ITERATION,
     
     % check termination condition
     if i > 1,
       if abs(J(i) - J(i-1)) < EPSILON, break; end,
     end
+    
+    i = i+1; % increment iteration counter
+    
+    membership_function = U.^m; 
+    
+    % ensure matching dimensions for pointwise division of j elements
+    V_numerator = membership_function*data;
+    V_denominator = (ones(size(data, 1), 1)*sum(membership_function'))';
+    V = V_numerator./V_denominator;
+    
+    % compute intensity differences between points and centroid |x - v|    
+    for k = 1:size(V, 1),
+      dist(k, :) = abs(data - V(k))';
+    end
+    
+    J(i) = sum(sum((dist.^2).*membership_function)); % i'th cost function result
+    
+    % compute new degree of fuzziness and update membership matrix
+    fuzziness = dist.^(2/(m-1));
+    for k=1:num_clusters,
+      U = U .+ sum(fuzziness);
+    end
+    
+    U = fuzziness./U;
   end
   
   
