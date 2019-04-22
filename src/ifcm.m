@@ -81,13 +81,12 @@ function [U, V] = ifcm (data, num_clusters, m)
   while i <= size(U, 1),    
     membership_function = U.^m;
     
-    
-    % Compute intensity differences between points and ALL neighbors 
+    % Compute intensity differences between points and ALL neighbors, g_jk
     % Define a kernel K, with function handle, to take all adjacent intensity differences
     K = @(X) kernel_diffIntensity(X);
     g = nlfilter(data, [3 3], K);
     
-    H = sum(U(i, :).*g)./sum(g);  % compute Feature Attraction
+    H = sum(U(i, :).*g)./sum(g);  % compute i'th Feature Attractions
     
     % Compute sum of 'Euclidean' distances between neighborhood coordinates, q_jk   
     E = kernel_distEuclidean(ones(3, 3));
