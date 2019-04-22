@@ -93,8 +93,10 @@ function [U, V] = ifcm (data, num_clusters, m)
     
     H = sum(U(i, :).*g)./sum(g);  % compute Feature Attraction
     
-    % Compute 'euclidean' distance between neighborhood coordinates
-
+    % Compute sum of 'Euclidean' distances between neighborhood coordinates, q_jk   
+    E = kernel_distEuclidean(ones(3, 3));
+    q = ones(size(data));     % Initialize matrix to store sum of all distances
+    q = conv2(q, E, 'same');
 
       
     % Step 4: At l'th iteration, calculate cluster center v^l using membership u_ij^l
