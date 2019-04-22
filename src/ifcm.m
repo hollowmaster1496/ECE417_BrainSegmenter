@@ -81,10 +81,6 @@ function [U, V] = ifcm (data, num_clusters, m)
   while i <= size(U, 1),    
     membership_function = U.^m;
     
-    % ensure matching dimensions for pointwise division of j elements
-    V_numerator = membership_function*data;
-    V_denominator = (ones(size(data, 1), 1)*sum(membership_function'))';
-    V = V_numerator./V_denominator;
     
     % Compute intensity differences between points and ALL neighbors 
     % Define a kernel K, with function handle, to take all adjacent intensity differences
@@ -101,6 +97,11 @@ function [U, V] = ifcm (data, num_clusters, m)
     F = sum(U(i, :).^2.*q.^2)./sum(q.^2); % compute i'th Distance Attractions
      
     % Step 4: At l'th iteration, calculate cluster center v^l using membership u_ij^l
+    % ensure matching dimensions for pointwise division of j elements
+    V_numerator = membership_function*data;
+    V_denominator = (ones(size(data, 1), 1)*sum(membership_function'))';
+    V = V_numerator./V_denominator;
+    
     
     % Step 5: Calculate the improved similarity measurement d^2(x, v)
     
