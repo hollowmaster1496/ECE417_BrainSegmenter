@@ -35,7 +35,7 @@ function [U, V] = ifcm (data, num_clusters, m)
   U = U./sum(U);              %    with random but normalized values
   
   MAX_ITERATION = 5;
-  EPSILON = 0.69;    % Control exit condition for iterative updates to U and V 
+  EPSILON = 0.02;    % Control exit condition for iterative updates to U and V 
   J = zeros(MAX_ITERATION, 1);  % Initialize the cost function
   
   % Execute FCM up to 'MAX_ITERATION' times
