@@ -127,6 +127,10 @@ function [U, V] = ifcm (data, num_clusters, m)
     % .  6a) if | u_ij^l - u_ij^(l-1) | < epsilon, then STOP
     % .  6b) otherwise repeat from step 4
     
-    i= i+1;
+    if i > 1,
+      if abs(U(i) - U(i-1)) < EPSILON, break; end,
+    end
+    
+    i= i+1;     % increment iteration counter
   end
 endfunction
