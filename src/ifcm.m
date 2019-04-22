@@ -44,7 +44,7 @@ function [U, V] = ifcm (data, num_clusters, m)
     
     % check termination condition
     if i > 1,
-      if abs(J(i) - J(i-1)) < EPSILON, break; end,
+      if abs(U(i) - U(i-1)) < EPSILON, break; end,
     end
     
     i = i+1; % increment iteration counter
