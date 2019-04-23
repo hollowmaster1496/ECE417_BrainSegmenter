@@ -31,7 +31,8 @@ function [U, V] = ifcm (data, num_clusters, m)
     %         Note: These are passed as parameters of function
   
   % Step 2: Execute FCM completely
-  U = randn(num_clusters, size(data)); % Initialize Membership matrix U
+  U = ones(num_clusters, size(data)); % Initialize Membership matrix U
+  U = imnoise(U, 'gaussian', 0, 0.7);
   U = U./sum(U);              %    with random but normalized values
   
   MAX_ITERATION = 5;
