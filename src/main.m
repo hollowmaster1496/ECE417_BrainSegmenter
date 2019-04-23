@@ -101,19 +101,23 @@
 % This image is then subjected to additive noise with a tunable parameter, alpha
 % to produce 2 noisy copies.
 clc;
+clear;
       
 f1 = im2double(imread('brain-tumour-mri.gif'));
 f1=f1(135:250,215:330);    
 subplot(1,3,1), imshow(f1);
+title('f1 (original)');
 
 alpha = 0.4;
 noise = rand(size(f1));
 f2 = f1 .+ alpha*noise;
 subplot(1,3,2), imshow(f2);
+title('f2 (noisy)');
 
 alpha = 0.7;
 f3 = f1 .+ alpha*noise;
 subplot(1,3,3), imshow(f3);
+title('f3 (very noisy)');
     
 %% 4) Solution
 % 
@@ -191,8 +195,11 @@ f1_ifcm_res = reshape(f1_ifcm, 116, 116);
 
 
 figure;
-subplot(1,3,1), imshow(f1_fcm_res);
-subplot(1,3,2), imshow(f1_ifcm_res);
+subplot(3,2,1), imshow(f1_fcm_res);
+title('f1 FCM');
+
+subplot(3,2,2), imshow(f1_ifcm_res);
+title('f1 IFCM');
 
 f2_fcm(1:length(X2))=0;
 f2_fcm(index1_fcm2)=1;
@@ -207,9 +214,12 @@ f2_ifcm(index3_ifcm2)=0.2;
 f2_ifcm_res = reshape(f2_ifcm, 116, 116);
 
 
-figure;
-subplot(1,3,1), imshow(f2_fcm_res);
-subplot(1,3,2), imshow(f2_ifcm_res);
+%figure;
+subplot(3,2,3), imshow(f2_fcm_res);
+title('f2 FCM');
+
+subplot(3,2,4), imshow(f2_ifcm_res);
+title('f2 IFCM');
 
 
 f3_fcm(1:length(X3))=0;
@@ -225,9 +235,12 @@ f3_ifcm(index3_ifcm3)=0.2;
 f3_ifcm_res = reshape(f3_ifcm, 116, 116);
 
 
-figure;
-subplot(1,3,1), imshow(f3_fcm_res);
-subplot(1,3,2), imshow(f3_ifcm_res);
+%figure;
+subplot(3,2,5), imshow(f3_fcm_res);
+title('f3 FCM');
+
+subplot(3,2,6), imshow(f3_ifcm_res);
+title('f3 IFCM');
 
 
 %% 6) Analysis and Conclusion
