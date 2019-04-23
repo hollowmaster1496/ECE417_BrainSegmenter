@@ -248,10 +248,31 @@ title('f3 IFCM');
 % TODO: Answer some questions
 %
 % 1) Have you been able to reproduce results reported in paper?
-%           
+%
+% 
 % 2) Did algorithm behave in a predictable way (as described by authors)?
+%   
+%   The IFCM algorithm is definitely more robust than FCM. Trials with FCM have
+%   demonstrated that the quality of segmentation is heavily influenced by the 
+%   initial membership matrix. This is not as evident with IFCM, possibly due to
+%   the fact that it goes through further iterations to determine the final membership,
+%   including a full round of FCM. IFCM also results in a final image with almost 
+%   no salt and pepper noise for the original and noisy image. The very noisy image
+%   however still has a great degree of noise in the final result for both FCM and
+%   IFCM. 
+%
 %
 % 3) Do your own conclusions support those made by the authors?
+%
+%   Our conlusion does support those of the authors on the condition that a suitable
+%   first approximation of the membership is made. A major observation is that
+%   the IFCM performs better than FCM for a wider range of first approximations of U.
+%   In general, the result of IFCM is also free of salt and pepper noise for the first two
+%   test cases. However, the result of FCM and IFCM tend to be very similar for the 
+%   'very noisy' test case when the first membership is constructed using 70% Gaussian 
+%   noise.
+%   
+%
 %
 % 4) What are the drawbacks (if any) of the proposed solution? 
 % 
