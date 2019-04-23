@@ -120,13 +120,52 @@ subplot(1,3,3), imshow(f3);
 % TODO: Necessary details on structure of algorithm 
 % TODO: Add actual implementation code
 %
-X1 = f1(:);  % Load Dataset
 
-[U1_fcm, V1_fcm] = ifcm(X1, 3, 2);
+
+% Segment dataset for image f1
+
+X1 = f1(:);  % Load Dataset
+[U1_fcm, V1_fcm] = fcm(X1, 3, 2);
 maxU = max(U1_fcm);
-index1 = find(U1_fcm(1,:) == maxU);
-index2 = find(U1_fcm(2, :) == maxU);
-index3 = find(U1_fcm(3, :) == maxU);
+index1_fcm = find(U1_fcm(1,:) == maxU);
+index2_fcm = find(U1_fcm(2, :) == maxU);
+index3_fcm = find(U1_fcm(3, :) == maxU);
+
+[U1_ifcm, V1_ifcm] = ifcm(X1, 3, 2);
+maxU = max(U1_ifcm);
+index1_ifcm = find(U1_ifcm(1,:) == maxU);
+index2_ifcm = find(U1_ifcm(2, :) == maxU);
+index3_ifcm = find(U1_ifcm(3, :) == maxU);
+
+% Segment dataset for image f2
+
+X2 = f2(:);  % Load Dataset
+[U2_fcm, V2_fcm] = fcm(X2, 3, 2);
+maxU = max(U2_fcm);
+index1_fcm2 = find(U2_fcm(1,:) == maxU);
+index2_fcm2 = find(U2_fcm(2, :) == maxU);
+index3_fcm2 = find(U2_fcm(3, :) == maxU);
+
+[U2_ifcm, V2_ifcm] = ifcm(X2, 3, 2);
+maxU = max(U2_ifcm);
+index1_ifcm2 = find(U2_ifcm(1,:) == maxU);
+index2_ifcm2 = find(U2_ifcm(2, :) == maxU);
+index3_ifcm2 = find(U2_ifcm(3, :) == maxU);
+
+% Segment dataset for image f3
+
+X3 = f3(:);  % Load Dataset
+[U3_fcm, V3_fcm] = fcm(X3, 3, 2);
+maxU = max(U3_fcm);
+index1_fcm3 = find(U3_fcm(1,:) == maxU);
+index2_fcm3 = find(U3_fcm(2, :) == maxU);
+index3_fcm3 = find(U3_fcm(3, :) == maxU);
+
+[U3_ifcm, V3_ifcm] = ifcm(X3, 3, 2);
+maxU = max(U3_ifcm);
+index1_ifcm3 = find(U3_ifcm(1,:) == maxU);
+index2_ifcm3 = find(U3_ifcm(2, :) == maxU);
+index3_ifcm3 = find(U3_ifcm(3, :) == maxU);
 
 % 
 % 
@@ -139,17 +178,58 @@ index3 = find(U1_fcm(3, :) == maxU);
 %
 % TODO: Plot images here
 f1_fcm(1:length(X1))=0;
-f1_fcm(index1)=1;
-f1_fcm(index2)=0.5;
-f1_fcm(index3)=0.2;
+f1_fcm(index1_fcm)=1;
+f1_fcm(index2_fcm)=0.5;
+f1_fcm(index3_fcm)=0.2;
+f1_fcm_res = reshape(f1_fcm, 116, 116);
 
-imnew = reshape(f1_fcm, 116, 116);
-figure; imshow(imnew);
-%
-% 
-% 
-%
-%
+f1_ifcm(1:length(X1))=0;
+f1_ifcm(index1_ifcm)=1;
+f1_ifcm(index2_ifcm)=0.5;
+f1_ifcm(index3_ifcm)=0.2;
+f1_ifcm_res = reshape(f1_ifcm, 116, 116);
+
+
+figure;
+subplot(1,3,1), imshow(f1_fcm_res);
+subplot(1,3,2), imshow(f1_ifcm_res);
+
+f2_fcm(1:length(X2))=0;
+f2_fcm(index1_fcm2)=1;
+f2_fcm(index2_fcm2)=0.5;
+f2_fcm(index3_fcm2)=0.2;
+f2_fcm_res = reshape(f2_fcm, 116, 116);
+
+f2_ifcm(1:length(X2))=0;
+f2_ifcm(index1_ifcm2)=1;
+f2_ifcm(index2_ifcm2)=0.5;
+f2_ifcm(index3_ifcm2)=0.2;
+f2_ifcm_res = reshape(f2_ifcm, 116, 116);
+
+
+figure;
+subplot(1,3,1), imshow(f2_fcm_res);
+subplot(1,3,2), imshow(f2_ifcm_res);
+
+
+f3_fcm(1:length(X3))=0;
+f3_fcm(index1_fcm3)=1;
+f3_fcm(index2_fcm3)=0.5;
+f3_fcm(index3_fcm3)=0.2;
+f3_fcm_res = reshape(f3_fcm, 116, 116);
+
+f3_ifcm(1:length(X3))=0;
+f3_ifcm(index1_ifcm3)=1;
+f3_ifcm(index2_ifcm3)=0.5;
+f3_ifcm(index3_ifcm3)=0.2;
+f3_ifcm_res = reshape(f3_ifcm, 116, 116);
+
+
+figure;
+subplot(1,3,1), imshow(f3_fcm_res);
+subplot(1,3,2), imshow(f3_ifcm_res);
+
+
 %% 6) Analysis and Conclusion
 % 
 % TODO: Answer some questions
