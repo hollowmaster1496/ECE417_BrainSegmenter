@@ -80,6 +80,7 @@
 % { \sum_{k=1}^{S} \mathbf{q}_{jk}^2 }$$
 %
 % Finally, clusters are decided iteratively updating U and V to minimize the following cost function:
+%
 % $$\mathit{argmin} \sum_{j=1}^{N} \sum_{i=1}^C \mathbf{u}_{ij}^2 d^2(\mathbf{x}_j,\mathbf{v}_i)$$
 %
 % The stop condition is decided by a degree of convergence such that 
@@ -118,51 +119,56 @@ title('f3 (very noisy)');
     
 %% 4) Solution
 % 
-% TODO: Necessary details on structure of algorithm 
-% TODO: Add actual implementation code
+% The membership _U_ and the centroids _V_, are computed iteratively
+% through FCM and IFCM on each of the test images: f1, f2, and f3 respectively.
+%
+% Details and source code of the implementation of FCM and IFCM are available in the 
+% 'custom source files' section. The IFCM follows the same order of steps as presented in 
+% the paper. In summary, for IFCM, a full round of FCM is executed to determine the
+% first membership matrix U for IFCM. Then the degree of fuzziness is computed with
+% the matrices $H_{ij}$ and $F_{ij}$ along with parameters $\lambda$ and $\varepsilon$.
+% These matrices are computed using neighborhood kernel operations.
+%
 %
 
 
 % Segment dataset for image f1
-
 X1 = f1(:);  % Load Dataset
-[U1_fcm, V1_fcm] = fcm(X1, 3, 2);
+[U1_fcm, V1_fcm] = fcm(X1, 3, 2);     % Execute FCM on f1
 maxU = max(U1_fcm);
 index1_fcm = find(U1_fcm(1,:) == maxU);
 index2_fcm = find(U1_fcm(2, :) == maxU);
 index3_fcm = find(U1_fcm(3, :) == maxU);
 
-[U1_ifcm, V1_ifcm] = ifcm(X1, 3, 2);
+[U1_ifcm, V1_ifcm] = ifcm(X1, 3, 2);  % Execute IFCM on f1
 maxU = max(U1_ifcm);
 index1_ifcm = find(U1_ifcm(1,:) == maxU);
 index2_ifcm = find(U1_ifcm(2, :) == maxU);
 index3_ifcm = find(U1_ifcm(3, :) == maxU);
 
 % Segment dataset for image f2
-
 X2 = f2(:);  % Load Dataset
-[U2_fcm, V2_fcm] = fcm(X2, 3, 2);
+[U2_fcm, V2_fcm] = fcm(X2, 3, 2);     % Execute FCM on f2
 maxU = max(U2_fcm);
 index1_fcm2 = find(U2_fcm(1,:) == maxU);
 index2_fcm2 = find(U2_fcm(2, :) == maxU);
 index3_fcm2 = find(U2_fcm(3, :) == maxU);
 
-[U2_ifcm, V2_ifcm] = ifcm(X2, 3, 2);
+[U2_ifcm, V2_ifcm] = ifcm(X2, 3, 2);  % Execute IFCM on f2
 maxU = max(U2_ifcm);
 index1_ifcm2 = find(U2_ifcm(1,:) == maxU);
 index2_ifcm2 = find(U2_ifcm(2, :) == maxU);
 index3_ifcm2 = find(U2_ifcm(3, :) == maxU);
 
 % Segment dataset for image f3
-
-X3 = f3(:);  % Load Dataset
-[U3_fcm, V3_fcm] = fcm(X3, 3, 2);
+X3 = f3(:);   % Load Dataset
+[U3_fcm, V3_fcm] = fcm(X3, 3, 2);     % Execute FCM on f3
 maxU = max(U3_fcm);
 index1_fcm3 = find(U3_fcm(1,:) == maxU);
 index2_fcm3 = find(U3_fcm(2, :) == maxU);
 index3_fcm3 = find(U3_fcm(3, :) == maxU);
 
-[U3_ifcm, V3_ifcm] = ifcm(X3, 3, 2);
+[U3_ifcm, V3_ifcm] = ifcm(X3, 3, 2);  % Execute FCM on f3
 maxU = max(U3_ifcm);
 index1_ifcm3 = find(U3_ifcm(1,:) == maxU);
 index2_ifcm3 = find(U3_ifcm(2, :) == maxU);
@@ -170,9 +176,7 @@ index3_ifcm3 = find(U3_ifcm(3, :) == maxU);
 
 %% 5) Visualization of Results
 %
-% Note: The cluster centers could not be aligned due to use of 'reshape'
-%
-% TODO: Plot images here
+
 f1_fcm(1:length(X1))=0;
 f1_fcm(index1_fcm)=1;
 f1_fcm(index2_fcm)=0.5;
@@ -185,8 +189,7 @@ f1_ifcm(index2_ifcm)=0.5;
 f1_ifcm(index3_ifcm)=0.2;
 f1_ifcm_res = reshape(f1_ifcm, 116, 116);
 
-
-figure;
+figure;                             % New figure window for results
 subplot(3,2,1), imshow(f1_fcm_res);
 title('f1 FCM');
 
@@ -206,13 +209,11 @@ f2_ifcm(index3_ifcm2)=0.2;
 f2_ifcm_res = reshape(f2_ifcm, 116, 116);
 
 
-%figure;
 subplot(3,2,3), imshow(f2_fcm_res);
 title('f2 FCM');
 
 subplot(3,2,4), imshow(f2_ifcm_res);
 title('f2 IFCM');
-
 
 f3_fcm(1:length(X3))=0;
 f3_fcm(index1_fcm3)=1;
@@ -226,8 +227,6 @@ f3_ifcm(index2_ifcm3)=0.5;
 f3_ifcm(index3_ifcm3)=0.2;
 f3_ifcm_res = reshape(f3_ifcm, 116, 116);
 
-
-%figure;
 subplot(3,2,5), imshow(f3_fcm_res);
 title('f3 FCM');
 
