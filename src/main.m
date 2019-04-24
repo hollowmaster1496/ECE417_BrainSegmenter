@@ -245,38 +245,71 @@ title('f3 IFCM');
 
 %% 6) Analysis and Conclusion
 % 
-% TODO: Answer some questions
 %
-% 1) Have you been able to reproduce results reported in paper?
+%% 1) Have you been able to reproduce results reported in paper?
+%  
+% Yes, to some extent, with a few compromises. 
+% The program requires high RAM to execute and crashed with images of size 256x256.
+% Our tests were run on an MRI grayscale image of size 116x116. 
+% The Neighborhood Attraction implementation also uses kernels of size 3x3 as opposed to
+% 9x9 as in the paper. The expansion of these kernels to a larger size is trivial but 
+% we have concerns about the program completing.
+%
+% The major claims of the paper have been verified through inspection. Unfortunately,
+% overlap metric (comparison score) used in the paper does not clearly define what was 
+% used as the 'ground truth', and has hence not been reproduced here. 
+% Overall, however, the IFCM segmentation is far more 
+% resistent to noise than the FCM alone.
 %
 % 
-% 2) Did algorithm behave in a predictable way (as described by authors)?
-%   
-%   The IFCM algorithm is definitely more robust than FCM. Trials with FCM have
-%   demonstrated that the quality of segmentation is heavily influenced by the 
-%   initial membership matrix. This is not as evident with IFCM, possibly due to
-%   the fact that it goes through further iterations to determine the final membership,
-%   including a full round of FCM. IFCM also results in a final image with almost 
-%   no salt and pepper noise for the original and noisy image. The very noisy image
-%   however still has a great degree of noise in the final result for both FCM and
-%   IFCM. 
+%% 2) Did algorithm behave in a predictable way (as described by authors)?
+%  
+% The IFCM algorithm is definitely more robust than FCM, as suggested by the
+% authors. However, a segmented result free of noise is not guaranteed by either
+% FCM or IFCM. Our results show that for a particular choice of initial membership
+% the result of IFCM is clearly superior to that of FCM in all noise cases.
+% Trials with FCM demonstrate that FCM usually introduces more noise but in some runs,
+% IFCM and FCM have similar results, particularly in the 'very noisy' case.
+%
+% In general, IFCM results in a final segmentation with almost 
+% no salt and pepper noise for the original and noisy image. The very noisy image
+% however still has a great degree of noise in the final result for both FCM and
+% IFCM. 
+%
+% A major observation is that the quality of segmentation is heavily influenced by the 
+% initial membership matrix. This is not as evident with IFCM, possibly due to
+% the fact that it goes through further iterations to determine the final membership,
+% including a full round of FCM. However, the choice of membership can cause the final
+% segmented image to be either extremely clear or completely unresolvable. Currently,
+% the initial membership is generated randomly as the paper did not clearly state
+% what was used for their tests.
 %
 %
-% 3) Do your own conclusions support those made by the authors?
+%% 3) Do your own conclusions support those made by the authors?
 %
-%   Our conlusion does support those of the authors on the condition that a suitable
-%   first approximation of the membership is made. A major observation is that
-%   the IFCM performs better than FCM for a wider range of first approximations of U.
-%   In general, the result of IFCM is also free of salt and pepper noise for the first two
-%   test cases. However, the result of FCM and IFCM tend to be very similar for the 
-%   'very noisy' test case when the first membership is constructed using 70% Gaussian 
-%   noise.
-%   
-%
-%
-% 4) What are the drawbacks (if any) of the proposed solution? 
+% Our conlusion does support those of the authors on the condition that a suitable
+% first approximation of the membership is made. A major observation is that
+% the IFCM performs better segmentation than FCM for a wider range of first approximations of U.
+% In general, the result of IFCM is also free of salt and pepper noise for the first two
+% test cases. However, the result of FCM and IFCM tend to be very similar for the 
+% 'very noisy' test case when the first membership is constructed using 70% Gaussian 
+% noise.
 % 
+% Secondly, the choice of $\lambda$ and $\varepsilon$ do indeed make a huge difference
+% in the quality of segmentation using IFCM. A poor choice of these constants can 
+% cause obscure and noisy segmentation. We weren't able to pin-point the best choice
+% of these values.
+%  
 %
+%
+%% 4) What are the drawbacks (if any) of the proposed solution? 
+% 
+% A major drawback of IFCM, and FCM for that matter, is that it requires an
+% an appropriate initial approximation of the membership function. 
+% Neighborhood operations are also very expensive and occupy the bulk of the 
+% execution time.
+% Finally, the choice of $\lambda$ and $\varepsilon$ have a huge impact on the result
+% and require advanced methods such as ANN to find optimal values for each image.
 %
 %% 7) Custom source files
 % 
