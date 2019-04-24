@@ -7,8 +7,6 @@
 %
 %% 1) Formulation
 % 
-% TODO: Add clear description of problem to be solved
-% 
 % Precise segmentation of the brain is important for detection of tumors,
 % edema, and necrotic tissues so that proper diagnosis and treatment can be 
 % provided. However, segmentation techniques such as thresholding, which rely
@@ -37,8 +35,6 @@
 %
 %% 2) Proposed Solution
 %
-% TODO: Add overall algorithmic workflow of proposed solution
-%
 % The algorithm proposed in the paper, termed "improved fuzzy c-means" (IFCM), reduces 
 % the effect of noise by considering a neighborhood of pixel intensities
 % and distances to a centroid. This is in contrast to FCM which considers only 
@@ -48,19 +44,21 @@
 % * feature attraction: differences between neighboring pixel intensities
 % * distance attraction: relative locations of neighboring pixel
 % 
-% The dataset $\mathbf{X}$ is a pxN matrix where p is the dimension of each
-% $\mathbf{x}_{j}$ vector and N is the size of the image. For the basic FCM case,
-% p is taken to be 1 such that each $\mathbf{x}_{j}$ vector is 1x1 and holds only the 
+% The dataset $\mathbf{X}$ is a _pxN_ matrix where _p_ is the dimension of each
+% $\mathbf{x}_{j}$ vector and _N_ is the size of the image. For the basic FCM case,
+% _p_ is taken to be 1 such that each $\mathbf{x}_{j}$ vector is _1x1_ and holds only the 
 % intensity of a pixel. $\mathbf{X}$ is thus constructed by column-stacking the input
 % image.
 %
 % The membership function of vector $\mathbf{x}_j$ to ${i}^{th}$ cluster is given by:    
-% $$ \mathbf{u}_{ij} =\frac{1}{ \sum_{k=1}^{C}(\frac{\mathrm{d (x_j{}, v_i{})}
-% }{\mathrm{d} (x_j{}, v_k{}) })^{2/(m-1)} } $$
+% 
+% $$\mathbf{u}_{ij} =\frac{1}{ \sum_{k=1}^{C}(\frac{\mathrm{d (x_j{}, v_i{})}
+% }{\mathrm{d} (x_j{}, v_k{}) })^{2/(m-1)} }$$
 %
 % The ${i}^{th}$ cluster feature center is:
-% $$ \mathbf{v}_i = \frac{ \sum_{j=1}^{N}(u_{ij})^{m} \mathbf{x}_j }{ 
-% \sum_{j=1}^{N}(u_{ij})^{m} } $$
+%
+% $$\mathbf{v}_i = \frac{ \sum_{j=1}^{N}(u_{ij})^{m} \mathbf{x}_j }{ 
+% \sum_{j=1}^{N}(u_{ij})^{m} }$$
 %
 % The primary differentiator between IFCM and FCM is IFCM's consideration of 
 % Neighborhood Attraction in the degree of fuzziness as follows:
@@ -77,22 +75,21 @@
 % Likewise, the matrix $\mathbf{F}_{ij}$ is constructed using the spatial difference,
 % $q_{jk}$, which is governed by the relative location of pixel k to pixel j within the
 % neighborhood.
+%
 % $$\mathbf{F}_{ij} = \frac{ \sum_{k=1}^{S} \mathbf{u}_{ik}^2 \mathbf{q}_{jk}^2 }
 % { \sum_{k=1}^{S} \mathbf{q}_{jk}^2 }$$
 %
 % Finally, clusters are decided iteratively updating U and V to minimize the following cost function:
-% $$ \mathit{argmin}  \sum_{j=1}^{N} \sum_{i=1}^C \mathbf{u}_{ij}^2 d^2(\mathbf{x}_j,\mathbf{v}_i)$$
+% $$\mathit{argmin} \sum_{j=1}^{N} \sum_{i=1}^C \mathbf{u}_{ij}^2 d^2(\mathbf{x}_j,\mathbf{v}_i)$$
 %
 % The stop condition is decided by a degree of convergence such that 
-% $ | U^{(l+1)}-U^{(l)} | \leq \varepsilon $ where $l$ represents the loop iteration and 
+% $| U^{(l+1)}-U^{(l)} | \leq \varepsilon$ where $l$ represents the loop iteration and 
 % $\varepsilon$ is the convergence parameter.
 %
 % Based on the research paper, the results presented here use $\lambda = 0.6038 $ and 
 % $\varepsilon = 0.6097$
 %
 %% 3) Data Sources
-% 
-% TODO: description of problem synthesis/parameters
 %
 % A brain MRI with a tumour and noticable salt-pepper noise is acquired from 
 % Figure3 of <http://www.ajnr.org/content/27/3/475/tab-figures-data>. This image
