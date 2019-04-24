@@ -308,9 +308,11 @@ title('f3 IFCM');
 %
 %% 7) Custom source files
 % 
-% N/A
+% * FCM <fcm.html>
+% * IFCM <ifcm.html>
+% * DIFF INTENSITY <kernel_diffIntensity.html>
+% * EUCLIDEAN DISTANCE <kernel_distEuclidean.html>
 %
-% 
 % 
 %
 %
