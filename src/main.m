@@ -171,11 +171,6 @@ index1_ifcm3 = find(U3_ifcm(1,:) == maxU);
 index2_ifcm3 = find(U3_ifcm(2, :) == maxU);
 index3_ifcm3 = find(U3_ifcm(3, :) == maxU);
 
-% 
-% 
-%
-%
-%
 %% 5) Visualization of Results
 %
 % Note: The cluster centers could not be aligned due to use of 'reshape'
