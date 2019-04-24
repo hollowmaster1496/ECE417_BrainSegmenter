@@ -1,27 +1,27 @@
-## Copyright (C) 2019 Haseeb Syed
-## 
-## This program is free software: you can redistribute it and/or modify it
-## under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or
-## (at your option) any later version.
-## 
-## This program is distributed in the hope that it will be useful, but
-## WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-## 
-## You should have received a copy of the GNU General Public License
-## along with this program.  If not, see
-## <https://www.gnu.org/licenses/>.
+% Copyright (C) 2019 Haseeb Syed
+% 
+% This program is free software: you can redistribute it and/or modify it
+% under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see
+% <https://www.gnu.org/licenses/>.
 
-## -*- texinfo -*- 
-## @deftypefn {} {@var{retval} =} ifcm (@var{input1}, @var{input2})
-##
-## @seealso{}
-## @end deftypefn
+% -*- texinfo -*- 
+% @deftypefn {} {@var{retval} =} ifcm (@var{input1}, @var{input2})
+%
+% @seealso{}
+% @end deftypefn
 
-## Author: Haseeb Syed <s2haseeb@edu.uwaterloo.ca>
-## Created: 2019-04-21
+% Author: Haseeb Syed <s2haseeb@edu.uwaterloo.ca>
+% Created: 2019-04-21
 
 % data: column-stacked input image
 % num_clusters: number of segments to group pixels into
@@ -32,8 +32,8 @@ function [U, V] = ifcm (data, num_clusters, m)
   
   % Step 2: Execute FCM completely
   U = ones(num_clusters, size(data)); % Initialize Membership matrix U
+  U = U./sum(U);                      %    with random but normalized values
   U = imnoise(U, 'gaussian', 0, 0.7);
-  U = U./sum(U);              %    with random but normalized values
   
   MAX_ITERATION = 5;
   EPSILON = 0.02;    % Control exit condition for iterative updates to U and V 
@@ -118,7 +118,7 @@ function [U, V] = ifcm (data, num_clusters, m)
     % compute new degree of fuzziness and update membership matrix
     fuzziness = ifcm_dist.^(2/(m-1));
     for k=1:num_clusters,
-      U = U .+ sum(fuzziness);
+      U = U + sum(fuzziness);
     end
     
     U = fuzziness./U;
@@ -133,4 +133,4 @@ function [U, V] = ifcm (data, num_clusters, m)
     
     i= i+1;     % increment iteration counter
   end
-endfunction
+end

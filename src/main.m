@@ -110,12 +110,12 @@ title('f1 (original)');
 
 alpha = 0.4;
 noise = rand(size(f1));
-f2 = f1 .+ alpha*noise;
+f2 = f1 + alpha*noise;
 subplot(1,3,2), imshow(f2);
 title('f2 (noisy)');
 
 alpha = 0.7;
-f3 = f1 .+ alpha*noise;
+f3 = f1 + alpha*noise;
 subplot(1,3,3), imshow(f3);
 title('f3 (very noisy)');
     
