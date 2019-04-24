@@ -25,7 +25,7 @@
 
 function [U, V] = fcm (data, num_clusters, m)
   % Step 2: Execute FCM completely
-  U = ones(num_clusters, size(data)); % Initialize Membership matrix U
+  U = ones(num_clusters, size(data, 1)); % Initialize Membership matrix U
   U = U./sum(U);                      %    with random but normalized values
   U = imnoise(U, 'gaussian', 0, 0.7);
   

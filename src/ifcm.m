@@ -31,7 +31,7 @@ function [U, V] = ifcm (data, num_clusters, m)
     %         Note: These are passed as parameters of function
   
   % Step 2: Execute FCM completely
-  U = ones(num_clusters, size(data)); % Initialize Membership matrix U
+  U = ones(num_clusters, size(data, 1)); % Initialize Membership matrix U
   U = U./sum(U);                      %    with random but normalized values
   U = imnoise(U, 'gaussian', 0, 0.7);
   
@@ -67,7 +67,7 @@ function [U, V] = ifcm (data, num_clusters, m)
     % compute new degree of fuzziness and update membership matrix
     fuzziness = dist.^(2/(m-1));
     for k=1:num_clusters,
-      U = U .+ sum(fuzziness);
+      U = U + sum(fuzziness);
     end
     
     U = fuzziness./U;
