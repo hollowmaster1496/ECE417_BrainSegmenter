@@ -1,11 +1,2 @@
-*.gitattributes text
-.gitignore      text
-*.md            text
-
-# Source files
-# ============
-*.m             text diff=matlab
-*.mu            text diff=matlab
-
 # Ignore .html 
 /src/html/*.html linguist-detectable=false
