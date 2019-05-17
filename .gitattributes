@@ -8,4 +8,4 @@
 *.mu            text diff=matlab
 
 # Ignore .html 
-*.html linguist-vendored
+/src/html/*.html linguist-detectable=false
