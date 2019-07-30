@@ -2,21 +2,15 @@
 
 #### ECE 417 Final Project at University of Waterloo
 
+
+
+
 ### Prerequisites
 ------
 
-#### Octave
-
-Import *image* package in the Command Window:
-
-```
-pkg load image
-```
-
-#### Matlab
-
-Acquire License for Matlab R2018a.
-Run Matlab Installer and include [Image Processing Tool Box](https://www.mathworks.com/help/images/index.html) as an add-on.
+[Image Processing Tool Box](https://www.mathworks.com/help/images/index.html)
+In Matlab R2018a, include the tool box as an add-on during installation.
+In Octave, no action is necessary.
 
 ### Run
 ------
@@ -24,13 +18,14 @@ Run Matlab Installer and include [Image Processing Tool Box](https://www.mathwor
 #### Octave
 
 ```
-publish('main.m')
+pkg load image
+main
 ```
 
 #### Matlab
 
 ```
-publish('main.m', 'html')
-
+main
 ```
+
 
