@@ -17,7 +17,7 @@
 
 ```
 git clone https://github.com/hollowmaster1496/ECE417_BrainSegmenter.git
-cd ECE417_BrainSegmenter
+cd ECE417_BrainSegmenter/src
 ```
 
 #### Matlab
