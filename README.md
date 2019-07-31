@@ -37,4 +37,12 @@ pkg load image
 main
 ```
 
+### Results
+------
 
+##### Input (Noisy Images)
+![Noisy Input MRI](images/noisy-brain-mri.png)
+
+
+##### Segmentation Output (FCM vs. IFCM)
+![FCM vs. IFCM](images/fcm-vs-ifcm.png)
