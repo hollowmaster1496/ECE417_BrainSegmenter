@@ -2,7 +2,10 @@
 
 #### ECE 417 Final Project at University of Waterloo
 
+This program is a Matlab/Octave implementation of the ifcm algorithm
+proposed in this [Research Paper by Shen et al](paper/Research-Paper-01504816.pdf).  
 
+A comparision of segmentation using ifcm and fcm is performed on sample brain mri with varying degrees of additive noise.
 
 
 ### Prerequisites
